@@ -114,3 +114,66 @@ exports.forgotPassword = async (req,res) =>{
 
 
 }
+
+
+// verify OTP
+exports.verifyOtp = async (req,res) =>{
+    const {email, otp} = req.body
+    if (!email || !otp){
+        return res.status(400).json({
+            message : "Please provide email for OTP"
+
+        })
+    }
+    //check if that otp is correct or not of that email
+
+    const userExists = await User.find({userEmail : email})
+    if (userExists.length ==0){
+        return res.status(400).json({
+            message : "Email is not registered"
+        })
+    }
+    if (userExists[0].otp !== otp){
+         res.status(400).json({
+            message : "Invalid OTP"
+        })
+
+    } else {
+        //dispose the otp so it cannot be used multiple times
+        userExists[0].otp = undefined
+        await userExists[0].save()    
+        res.status(200).json({
+        message : "OTP verified"
+    })
+
+}
+}
+
+exports.resetPassword = async (req,res) =>{
+    const {email, newPassword, confirmPassword} = req.body
+    if (!email ||!newPassword || !confirmPassword){
+        return res.status(400).json({
+            message : "Please provide email, new Password and confirm password"
+        })
+
+    }
+    
+    if (newPassword !== confirmPassword){
+        return res.status(400).json({
+            message : "Password does not match"
+        })
+        
+    }
+    const userExists = await User.find({userEmail : email})
+    if(userExists.length == 0){
+        return res.status(404).json({
+            message : "User email not registered"
+        })
+    }
+    userExists[0].userPassword = bcrypt.hashSync(newPassword, 10)
+    await userExists[0].save()
+
+    res.status(200).json({
+        message : "Password changed successfully"
+    })
+}
