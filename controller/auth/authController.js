@@ -133,6 +133,7 @@ exports.verifyOtp = async (req,res) =>{
             message : "Email is not registered"
         })
     }
+    
     if (userExists[0].otp !== otp){
          res.status(400).json({
             message : "Invalid OTP"
@@ -141,6 +142,7 @@ exports.verifyOtp = async (req,res) =>{
     } else {
         //dispose the otp so it cannot be used multiple times
         userExists[0].otp = undefined
+        userExists[0].isOtpVerified = true
         await userExists[0].save()    
         res.status(200).json({
         message : "OTP verified"
@@ -170,7 +172,13 @@ exports.resetPassword = async (req,res) =>{
             message : "User email not registered"
         })
     }
+    if (userExists[0].isOtpVerified !== true){
+        return res.status(403).json({
+            message : "This action cannot be performed"
+        })
+    }
     userExists[0].userPassword = bcrypt.hashSync(newPassword, 10)
+    userExists[0].isOtpVerified = false
     await userExists[0].save()
 
     res.status(200).json({
