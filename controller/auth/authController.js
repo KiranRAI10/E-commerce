@@ -20,7 +20,6 @@ exports.registerUser = async (req, res) => {
         })
     }
 
-
     //else
     await User.create({
         userName: username,
@@ -60,11 +59,6 @@ exports.loginUser =  async (req, res) => {
         const token = jwt.sign({id : userFound[0]._id},process.env.SECRET_KEY,{
             expiresIn : '30d'
         })
-
-
-
-
-
 
 
         res.status(200).json({
@@ -109,7 +103,7 @@ exports.forgotPassword = async (req,res) =>{
         message : `${otp}`
     })
     res.status(200).json({
-        message : "Email sent successfully"
+        message : "OTP sent successfully"
     })
 
 

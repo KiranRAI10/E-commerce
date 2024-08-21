@@ -6,6 +6,8 @@ const { registerUser, loginUser } = require("./controller/auth/authController")
 
 //routes here
 const authRoute = require("./routes/authRoute")
+const productRoute = require("./routes/productRoute")
+
 
 
 
@@ -26,7 +28,8 @@ app.get("/", (req, res) => {
     })
 })
 
-app.use("",authRoute)
+app.use("/api",authRoute)
+app.use("/api",productRoute)
 
 const port = process.env.PORT
 //listen server
