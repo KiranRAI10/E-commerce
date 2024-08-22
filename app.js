@@ -21,6 +21,9 @@ connectDatabase()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+//telling nodejs to give access to uploads folder
+app.use(express.static("uploads"))
+
 //test api to check if server is live or not
 app.get("/", (req, res) => {
     res.status(200).json({

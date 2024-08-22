@@ -5,7 +5,7 @@ const User = require("../model/userModel")
 const isAuthenticated = async (req,res,next) =>{
     const token = req.headers.authorization
     if (!token){
-        res.status(400).json({
+       return res.status(400).json({
             message : "Please login"
         })
     }

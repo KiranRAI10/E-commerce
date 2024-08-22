@@ -3,6 +3,15 @@ const Product = require("../../../model/productModel")
 
 
 exports.createProduct = async (req,res) =>{
+    const file = (req.file)
+    let filePath
+    if(!file){
+        filePath = ""
+
+    } else {
+        filePath = req.file.filename
+    }
+
     const {productName,productDescription,productPrice,productStatus,productStockQty} = req.body
 
     if(!productName || !productDescription || !productPrice || !productStatus || !productStockQty){
@@ -17,7 +26,8 @@ exports.createProduct = async (req,res) =>{
         productDescription,
         productPrice,
         productStockQty,
-        productStatus
+        productStatus,
+        productImage : "http://localhost:3000/" + filePath
     })
     res.status(200).json({
         message : "Product created successfully"
