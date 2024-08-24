@@ -3,7 +3,6 @@ const Product = require("../../../model/productModel")
 
 
 exports.createProduct = async (req,res) =>{
-  try {
     const file = (req.file)
     let filePath
     if(!file){
@@ -34,17 +33,11 @@ exports.createProduct = async (req,res) =>{
         message : "Product created successfully"
     })
     
-  } catch (err) {
-    res.status(500).json({
-        message : "Something went wrong"
-    })
-    
-  }
 }
 
 
 exports.getProducts = async (req,res) =>{
-    try {
+   
         const products = await Product.find()
     if(products.length ==0){
         res.status(400).json({
@@ -57,16 +50,12 @@ exports.getProducts = async (req,res) =>{
             products
         })
     }
-    } catch (err) {
-        res.status(500).json({
-            message : "Something went wrong in getProducts"
-        })
-        
-    }
 }
 
+
+
 exports.getProduct = async (req,res) =>{
-    try {
+   
         const {id} = req.params
     if(!id ){
         return res.status(400).json({
@@ -82,14 +71,7 @@ exports.getProduct = async (req,res) =>{
     } else {
         res.status(200).json({
             message : "Product fetched successfully",
-            product 
+            product
         })
-    }
-
-    } catch (err) {
-        res.status(500).json({
-            message : "Something went wrong in getProduct"
-        })
-        
     }
 }

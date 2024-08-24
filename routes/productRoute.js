@@ -4,12 +4,13 @@ const restrictTo = require("../middleware/restrictTo")
 
 const router = require("express").Router()
 const {multer,storage} =require("../middleware/multerConfig")
+const catchAsync = require("../services/catchAsync")
 const upload = multer({storage : storage})
 
 router.route("/products")
-.post(isAuthenticated,restrictTo("admin"), upload.single('productImage'),createProduct)
-.get(getProducts)
+.post(isAuthenticated,restrictTo("admin"), upload.single('productImage'),catchAsync(createProduct))
+.get(catchAsync(getProducts))
 
-router.route("/products/:id").get(getProduct)
+router.route("/products/:id").get(catchAsync(getProduct))
 
 module.exports = router
