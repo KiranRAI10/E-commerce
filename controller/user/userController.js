@@ -1,9 +1,10 @@
 const Product = require("../../model/productModel")
 const Review = require("../../model/reviewModel")
+const User = require("../../model/userModel")
 
 
 exports.createReview = async (req,res) =>{
-    const userId = req.params.id
+    const userId = req.user.id
     const {rating, message} = req.body
     const productId =req.params.id
 
@@ -51,19 +52,16 @@ exports.getProductReview = async (req,res) =>{
         })
     }
 
-    const review = await Review.find({productId})
-    if(review.length == 0){
-        res.status(400).json({
-            message : "No review found",
-            review : []
-        })
-    } else {
+    const review = await Review.find({productId  }).populate("productId").populate("userId")
+    
+    console.log(review)
+    
         res.status(200).json({
             message : "Review fetched succesfully",
-            review
+            data : review,
         })
     }
-}
+
 
 exports.deleteReview = async(req,res) =>{
     const reviewId = req.params.id

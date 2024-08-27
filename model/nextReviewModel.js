@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
-const reviewSchema = new Schema({
+const newreviewSchema = new Schema({
     userId : {
         type : Schema.Types.ObjectId,
         ref : "User",
@@ -24,8 +24,8 @@ const reviewSchema = new Schema({
     timestamps : true
 })
 
-const NextWayReview = mongoose.model("NextWayReview",reviewSchema)
+const NextWayReview = mongoose.model("NextWayReview",newreviewSchema)
 module.exports = {
     NextWayReview,
-    reviewSchema
+    newreviewSchema
 }
