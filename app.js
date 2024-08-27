@@ -1,22 +1,18 @@
 const express = require("express")
 const app = express()
-const { connectDatabase } = require("./database/database")
-
-const { registerUser, loginUser } = require("./controller/auth/authController")
 
 //routes here
 const authRoute = require("./routes/authRoute")
 const productRoute = require("./routes/productRoute")
 const adminUsersRoute = require("./routes/adminUsersRoute")
-
-
-
+const userReviewRoute = require("./routes/userReviewRoute")
 
 
 //Tell node to use Dotenv
 require("dotenv").config()
 
 //Database connection
+const { connectDatabase } = require("./database/database")
 connectDatabase()
 
 app.use(express.json())
@@ -35,6 +31,7 @@ app.get("/", (req, res) => {
 app.use("/api",authRoute)
 app.use("/api",productRoute)
 app.use("/api",adminUsersRoute)
+app.use("/api",userReviewRoute)
 
 const port = process.env.PORT
 //listen server
