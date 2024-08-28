@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-const { newreviewSchema } = require("./nextReviewModel")
+// const { newreviewSchema } = require("./nextReviewModel")
 const Schema = mongoose.Schema
 
 const productSchema = new Schema({
@@ -28,8 +28,8 @@ const productSchema = new Schema({
     },
     productImage : {
         type : String
-    },
-    reviews : [newreviewSchema]
+    }
+    // reviews : [newreviewSchema]
     
 
 
