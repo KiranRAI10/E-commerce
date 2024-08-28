@@ -104,7 +104,7 @@ exports.updateProduct = async (req,res) =>{
         })
 
     }
-   const datas = await Product.findByIdAndUpdate(id,{
+   const data = await Product.findByIdAndUpdate(id,{
         productName ,
         productDescription,
         productPrice,
@@ -117,7 +117,7 @@ exports.updateProduct = async (req,res) =>{
     })
     res.status(200).json({
         message : "Product updated successfully",
-        datas
+        data
         
     })
 

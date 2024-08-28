@@ -5,9 +5,9 @@ const restrictTo = require("../../middleware/restrictTo")
 const catchAsync = require("../../services/catchAsync")
 
 
-router.route("/users").get(isAuthenticated,restrictTo("admin"),catchAsync(getUsers))
+router.route("/").get(isAuthenticated,restrictTo("admin"),catchAsync(getUsers))
 
-router.route("/users/:id").delete(isAuthenticated,restrictTo("admin"),deleteUser)
+router.route("/:id").delete(isAuthenticated,restrictTo("admin"),deleteUser)
 
 
 

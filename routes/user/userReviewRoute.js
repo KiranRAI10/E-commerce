@@ -4,8 +4,8 @@ const isAuthenticated = require("../../middleware/isAuthenticated")
 const catchAsync = require("../../services/catchAsync")
 
 
-router.route("/reviews").get(isAuthenticated,catchAsync(getMyReviews))
-router.route("/reviews/:id")
+router.route("/").get(isAuthenticated,catchAsync(getMyReviews))
+router.route("/:id")
 .post(isAuthenticated,catchAsync(createReview))
 .delete(isAuthenticated,catchAsync(deleteReview))
 

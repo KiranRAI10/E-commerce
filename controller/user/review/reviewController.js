@@ -40,12 +40,12 @@ exports.getMyReviews = async (req,res) =>{
     if(reviews.length ==0){
         res.status(404).json({
             message : "You haven't given review to any product",
-            reviews : []
+            data : []
         })
     } else {
         res.status(200).json({
             message : "User reviews fetched successfully",
-            reviews
+            data : reviews
         })
     }
 
