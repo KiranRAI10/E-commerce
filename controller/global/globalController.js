@@ -3,7 +3,8 @@ const Product = require("../../model/productModel")
 
 exports.getProducts = async (req, res) => {
 
-    // const products = await Product.find().populate({
+    const products = await Product.find()
+    // .populate({
     //     path : "reviews",
     //     populate : {
     //         path : "userId",
