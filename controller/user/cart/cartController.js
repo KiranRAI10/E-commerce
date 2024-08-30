@@ -36,3 +36,22 @@ exports.getMyCartItems = async (req,res)=>{
     })
 
 }
+
+exports.deleteItemFromCart = async (req,res) =>{
+    const productId = req.params.id
+    const userId = req.user.id
+    const product = await Product.findById(productId)
+    if(!product) {
+        return res.status(404).json({
+            message : "No product with that product id"
+        })
+    }
+    //get user cart
+    const user = await User.findById(userId)
+    user.cart = user.cart.filter((pId) =>pId != productId)
+    await user.save()
+    res.status(200).json({
+        message : "Items removed from cart"
+    })
+
+}
