@@ -8,6 +8,7 @@ const adminUsersRoute = require("./routes/admin/adminUsersRoute")
 const userReviewRoute = require("./routes/user/userReviewRoute")
 const profileRoute = require("./routes/user/profileRoute")
 const cartRoute = require("./routes/user/cartRoute")
+const orderRoute = require("./routes/user/orderRoute")
 
 
 
@@ -37,6 +38,7 @@ app.use("/api/admin",adminUsersRoute)
 app.use("/api/reviews",userReviewRoute)
 app.use("/api/profile",profileRoute)
 app.use("/api/cart",cartRoute)
+app.use("/api/order",orderRoute)
 
 const port = process.env.PORT
 //listen server
