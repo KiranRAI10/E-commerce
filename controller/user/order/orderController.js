@@ -16,7 +16,7 @@ exports.createOrder = async (req,res) =>{
         item,
         paymentDetails
     })
-    console.log(user)
+    // console.log(user)
     res.status(200).json({
         message : "Order created successfully"
     })
@@ -24,14 +24,13 @@ exports.createOrder = async (req,res) =>{
 
 exports.getMyOrders = async (req,res)=>{
     const userId = req.user.id
-    // console.log(userId)
-    // console.log(user)
+    
     const orders = await Order.find({user : userId}).populate({ 
         path : "item.product",
-        model : "Product"
+        model : "Product",
+        select : "-productStockQty -createdAt -updatedAt -reviews -__v"
     })
-    // console.log(user)
-    // console.log(orders)
+    
     res.status(200).json({
         message : "Orders fetched successfully",
         orders
